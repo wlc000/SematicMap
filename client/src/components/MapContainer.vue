@@ -20,17 +20,23 @@
             确认选择
           </a-button>
         </a-row>
+        <a-row>
+          <a-button @click="onReset">
+            重新选择
+          </a-button>
+        </a-row>
         <div>
-          <span>已选路径id</span>
+          <span>已选路径id：</span>
           {{ this.selectedPathList }}
         </div>
         <div>
-          <span>可选路径id</span>
+          <span>可选路径id：</span>
           {{ this.selectedAble }}
         </div>
+        <br><br><br><br>
         <div>
-          <span>预测结果</span>
-          1{{ this.prediction }}1
+          <span>预测结果：</span>
+          {{ this.prediction }}
         </div>
       </a-layout-sider>
     </a-layout>
@@ -55,7 +61,7 @@ export default {
     const selectedAble = ref([])
     const startPath = ref(null)
     const endPath = ref(null)
-    const prediction = ref(null)
+    const prediction = ref('无')
     return {
       map,
       geojson,
@@ -166,8 +172,8 @@ export default {
       this.refPath()
     },
     selectPathMode() {
-      this.selectedPathList.value = []
-      this.selectedAble.value = []
+      // this.selectedPathList = []
+      // this.selectedAble = []
       this.startPath = null
       this.endPath = null
       this.bindSelectEvent()
@@ -176,6 +182,7 @@ export default {
       this.unbindSelectEvent()
     },
     onSubmit() {
+      this.prediction = '(请稍等)'
       const path = 'http://localhost:5000/eta';
       let payload = {
         path:this.selectedPathList,
@@ -188,6 +195,12 @@ export default {
               // eslint-disable-next-line
               console.error(error);
           });
+    },
+    onReset() {
+      this.prediction = '无'
+      this.selectedPathList = []
+      this.selectedAble = []
+      this.initMap()
     }
   },
   mounted() {
