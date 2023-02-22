@@ -1,45 +1,16 @@
 <script setup lang="ts">
-import {Ref, ref, shallowRef, triggerRef} from 'vue'
-
-export interface User {
-  name: string;
-  count: Ref<number>;
-}
+import { ref } from 'vue'
 
 defineProps<{ msg: string }>()
 
-const count: Ref<number> = ref<number>(0)
-const user: User = {
-  name: "kkk",
-  count: ref(4),
-};
-
-let message: Ref<User> = shallowRef({
-  name: "111",
-  count: shallowRef(3)
-})
-
-const changeMsg = (msg: Ref<User>) => {
-  user.count.value++;
-  msg.value = {
-    name: "222",
-    count: ref(5)
-  }
-  console.log(msg.value)
-  triggerRef(msg)
-}
-
+const count = ref(0)
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <a-space>
-      <a-button @click="count++">count is {{ count }}</a-button>
-      <a-button @click="user['count'].value++">user[count] is {{ user["count"] }}</a-button>
-      <a-button @click="changeMsg">{{ message["name"] }}</a-button>
-    </a-space>
+    <button type="button" @click="count++">count is {{ count }}</button>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR
@@ -49,7 +20,7 @@ const changeMsg = (msg: Ref<User>) => {
   <p>
     Check out
     <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-    >create-vue</a
+      >create-vue</a
     >, the official Vue + Vite starter
   </p>
   <p>

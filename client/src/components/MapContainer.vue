@@ -189,11 +189,11 @@ export default {
       }
       axios.post(path,payload)
           .then((res) => {
-              this.prediction = res.data.prediction;
+            this.prediction = res.data.prediction;
           })
           .catch((error) => {
-              // eslint-disable-next-line
-              console.error(error);
+            // eslint-disable-next-line
+            console.error(error);
           });
     },
     onReset() {
@@ -223,3 +223,4 @@ export default {
   background: #f9f9f9;
 }
 </style>
+
